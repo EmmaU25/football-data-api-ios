@@ -10,17 +10,50 @@ import UIKit
 
 class ClassementTableViewController: UITableViewController {
     var val = ""
+    var mLista = [[ String: AnyObject]]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         val = indexi
-        print("Classement "+val)
+        print(val)
+        //self.tableView.register(ClassementTableViewCell.self, forCellReuseIdentifier: "Cell")
+        let url : String = "http://api.football-data.org/v1/competitions/"+val+"/leagueTable"
+        let urlRequest = URL(string:url)
+        
+        URLSession.shared.dataTask(with: urlRequest!, completionHandler:{
+            (data,response, error) in
+            if(error != nil){
+                print(error.debugDescription)
+            }else{
+                do{
+                    let object = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    if let dictionary = object as? [String: AnyObject] {
+                        self.readJSONObject(object: dictionary)
+                    }
+                    OperationQueue.main.addOperation {
+                        self.tableView.reloadData()
+                    }
+                }catch let error as NSError{
+                    print(error)
+                }
+            }
+        }).resume()
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    func readJSONObject(object: [String: AnyObject]) {
+        let users = object["standing"] as? [[String: AnyObject]]
+        self.mLista = users!
 
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -30,23 +63,22 @@ class ClassementTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.mLista.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let item = self.mLista[indexPath.row]
+        cell.textLabel?.text = "\(item["teamName"]!) |\(item["points"]!) |\(item["goals"]!) |\(item["wins"]!) |\(item["draws"]!) |\(item["losses"]!)"
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

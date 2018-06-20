@@ -20,6 +20,8 @@
 		5EFCEEB220DA32A200C5C63A /* MatchsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFCEEB120DA32A200C5C63A /* MatchsTableViewController.swift */; };
 		5EFCEEB420DA45A800C5C63A /* ClassementTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFCEEB320DA45A800C5C63A /* ClassementTableViewController.swift */; };
 		5EFCEEB620DA45B800C5C63A /* EquipesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFCEEB520DA45B800C5C63A /* EquipesTableViewController.swift */; };
+		5EFCEEBC20DA5D3500C5C63A /* ClassementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EFCEEBA20DA5D3500C5C63A /* ClassementTableViewCell.swift */; };
+		5EFCEEBD20DA5D3500C5C63A /* ClassementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EFCEEBB20DA5D3500C5C63A /* ClassementTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		5EFCEEB120DA32A200C5C63A /* MatchsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchsTableViewController.swift; sourceTree = "<group>"; };
 		5EFCEEB320DA45A800C5C63A /* ClassementTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassementTableViewController.swift; sourceTree = "<group>"; };
 		5EFCEEB520DA45B800C5C63A /* EquipesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquipesTableViewController.swift; sourceTree = "<group>"; };
+		5EFCEEBA20DA5D3500C5C63A /* ClassementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassementTableViewCell.swift; sourceTree = "<group>"; };
+		5EFCEEBB20DA5D3500C5C63A /* ClassementTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClassementTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +125,8 @@
 				5EFCEEB120DA32A200C5C63A /* MatchsTableViewController.swift */,
 				5EFCEEB320DA45A800C5C63A /* ClassementTableViewController.swift */,
 				5EFCEEB520DA45B800C5C63A /* EquipesTableViewController.swift */,
+				5EFCEEBA20DA5D3500C5C63A /* ClassementTableViewCell.swift */,
+				5EFCEEBB20DA5D3500C5C63A /* ClassementTableViewCell.xib */,
 			);
 			path = footballApi;
 			sourceTree = "<group>";
@@ -252,6 +258,7 @@
 			files = (
 				5EA67CE120CFC2AA00E48035 /* LaunchScreen.storyboard in Resources */,
 				5EA67CDE20CFC2AA00E48035 /* Assets.xcassets in Resources */,
+				5EFCEEBD20DA5D3500C5C63A /* ClassementTableViewCell.xib in Resources */,
 				5EA67CDC20CFC2AA00E48035 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EA67CD920CFC2AA00E48035 /* ViewController.swift in Sources */,
+				5EFCEEBC20DA5D3500C5C63A /* ClassementTableViewCell.swift in Sources */,
 				5EFCEEB420DA45A800C5C63A /* ClassementTableViewController.swift in Sources */,
 				5EFCEEB020DA2EF100C5C63A /* MenuViewController.swift in Sources */,
 				5EFCEEAD20DA2DBF00C5C63A /* JsonTableViewController.swift in Sources */,

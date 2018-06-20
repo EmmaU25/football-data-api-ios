@@ -9,6 +9,7 @@
 import UIKit
 var mLista = [[ String: AnyObject]]()
 var myIndex = ""
+var nameLigue = ""
 class JsonTableViewController: UITableViewController {
 
     override func viewDidLoad() {
@@ -16,9 +17,11 @@ class JsonTableViewController: UITableViewController {
         super.viewDidLoad()
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         let url : String = "http://api.football-data.org/v1/competitions/?season=2017"
-        let urlRequest = URL(string:url)
         
-        URLSession.shared.dataTask(with: urlRequest!, completionHandler:{
+        let urlRequest = URL(string:url)
+        var request = URLRequest(url: urlRequest!)
+        request.setValue("94ceb5b1538a4946b4bee268559e0bf0", forHTTPHeaderField: "X-Auth-Token")
+        URLSession.shared.dataTask(with: request, completionHandler:{
             (data,response, error) in
             if(error != nil){
                 print(error.debugDescription)
@@ -29,7 +32,6 @@ class JsonTableViewController: UITableViewController {
                     OperationQueue.main.addOperation {
                         self.tableView.reloadData()
                     }
-                    
                 }catch let error as NSError{
                     print(error)
                 }
@@ -63,12 +65,12 @@ class JsonTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let item = mLista[indexPath.row]
         cell.textLabel?.text = item["caption"] as? String
-
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         myIndex = String(describing: mLista[indexPath.row]["id"])
+        nameLigue = String(describing: mLista[indexPath.row]["caption"])
         performSegue(withIdentifier: "segue", sender: self)
     }
 

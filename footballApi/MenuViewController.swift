@@ -12,37 +12,34 @@ class MenuViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
     @IBAction func btnMatchs(_ sender: Any) {
-        var newString = myIndex.replacingOccurrences(of: "Optional(", with: "", options: .literal, range: nil)
-        newString.remove(at: newString.index(before: newString.endIndex))
-        indexi = newString
         performSegue(withIdentifier: "segueMatchs", sender: self)
     }
     
     @IBAction func btnClassement(_ sender: Any) {
-        var newString = myIndex.replacingOccurrences(of: "Optional(", with: "", options: .literal, range: nil)
-        newString.remove(at: newString.index(before: newString.endIndex))
-        indexi = newString
+
         performSegue(withIdentifier: "segueClassment", sender: self)
     }
     
     
     @IBAction func btnEquipes(_ sender: Any) {
-        var newString = myIndex.replacingOccurrences(of: "Optional(", with: "", options: .literal, range: nil)
-        newString.remove(at: newString.index(before: newString.endIndex))
-        indexi = newString
+
         performSegue(withIdentifier: "segueEquipes", sender: self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = myIndex
+        var name1 = nameLigue.replacingOccurrences(of: "Optional(", with: "", options: .literal, range: nil)
+        name1.remove(at: name1.index(before: name1.endIndex))
+        label.text = name1
+        var newString = myIndex.replacingOccurrences(of: "Optional(", with: "", options: .literal, range: nil)
+        newString.remove(at: newString.index(before: newString.endIndex))
+        indexi = newString
         // Do any additional setup after loading the view.
     }
 
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
         // Dispose of any resources that can be recreated.
     }
     

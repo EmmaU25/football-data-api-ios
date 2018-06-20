@@ -10,16 +10,46 @@ import UIKit
 
 class MatchsTableViewController: UITableViewController {
     var val = ""
+    var mLista = [[ String: AnyObject]]()
     override func viewDidLoad() {
         super.viewDidLoad()
         val = indexi
-        print("Matchs "+val)
+        
+        let url : String = "http://api.football-data.org/v1/competitions/"+val+"/fixtures?matchday=8"
+        let urlRequest = URL(string:url)
+        
+        URLSession.shared.dataTask(with: urlRequest!, completionHandler:{
+            (data,response, error) in
+            if(error != nil){
+                print(error.debugDescription)
+            }else{
+                do{
+                    let object = try JSONSerialization.jsonObject(with: data!, options: .allowFragments)
+                    if let dictionary = object as? [String: AnyObject] {
+                        self.readJSONObject(object: dictionary)
+                    }
+                    OperationQueue.main.addOperation {
+                        self.tableView.reloadData()
+                    }
+                }catch let error as NSError{
+                    print(error)
+                }
+            }
+        }).resume()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    func readJSONObject(object: [String: AnyObject]) {
+        let matchs = object["fixtures"] as? [[String: AnyObject]]
+        self.mLista = matchs!
+        print(self.mLista)
+        
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -30,23 +60,32 @@ class MatchsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.mLista.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let item = self.mLista[indexPath.row]
+        var BH = String(describing : item["result"]!["goalsHomeTeam"])
+        var newString = BH.replacingOccurrences(of: "Optional(Optional(", with: "", options: .literal, range: nil)
+        newString.remove(at: newString.index(before: newString.endIndex))
+        var b = newString.replacingOccurrences(of: ")", with: "", options: .literal, range: nil)
+        
+        var SAway = String(describing: item["result"]!["goalsAwayTeam"])
+        var newS = SAway.replacingOccurrences(of: "Optional(Optional(", with: "", options: .literal, range: nil)
+        newS.remove(at: newString.index(before: newString.endIndex))
+        var c = newS.replacingOccurrences(of: ")", with: "", options: .literal, range: nil)
+        cell.textLabel?.text = "\(item["homeTeamName"]!): \(b) - \(c): \(item["awayTeamName"]!)"
+      
         // Configure the cell...
-
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
